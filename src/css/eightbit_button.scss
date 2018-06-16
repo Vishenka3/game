@@ -1,0 +1,52 @@
+$outline-width: 4px;
+$shadow-width: 3px;
+
+$button-background: #9f00ff;
+$sec-button-background: #8300d8;
+$shadow-color: #46007b;
+
+.eightbit-btn {
+  background: $button-background;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  font-size: 12px;
+  padding: 10px 10px;
+  text-decoration: none;
+  color: #000000;
+  box-shadow: inset (-$shadow-width) (-$shadow-width) 0 0 $shadow-color;
+
+  &:hover{
+    background: $sec-button-background;
+    box-shadow: inset (-$shadow-width + 1) (-$shadow-width + 1) 0 0 $shadow-color;
+  }
+
+  &:active {
+    color: white;
+    background: $sec-button-background;
+    box-shadow: inset $shadow-width $shadow-width 0 0 $shadow-color;
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+  }
+
+  &:before {
+    top: -$outline-width;
+    left: 0;
+    border-top: $outline-width black solid;
+    border-bottom: $outline-width black solid;
+  }
+
+  &:after {
+    left: -$outline-width;
+    top: 0;
+    border-left: $outline-width black solid;
+    border-right: $outline-width black solid;
+  }
+}
