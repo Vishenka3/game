@@ -41,6 +41,10 @@ html {
   li{
     list-style-type: none;
   }
+
+  em{
+    color: #7e00ff;
+  }
 }
 
 header {
@@ -118,6 +122,28 @@ canvas {
   transition: opacity .5s;
 }
 
+.hide-modal{
+  display: none;
+  opacity: 0;
+}
+
+.task-window{
+  line-height: 1.5rem;
+  p{
+    margin-top: 2rem;
+  }
+  input {
+    width: 150px;
+    height: 30px;
+    opacity: 1;
+    border: none;
+    outline: none;
+    padding: 4px 8px;
+    background-color: rgba(126, 0, 255, 0.41);
+    font-family: PrssStart, serif;;
+  }
+}
+
 .registration-form{
   display: flex;
   flex-direction: column;
@@ -185,14 +211,6 @@ canvas {
   width: 100px;
   text-align: center;
   padding: 10px 0;
-  position: relative;
-  .blockCover{
-    display: none;
-    top: 0;
-    width: inherit;
-    height: 50px;
-    position: absolute;
-  }
 }
 
 .modal-button{
@@ -226,7 +244,7 @@ canvas {
     align-items: flex-end;
     flex-grow: 5;
     .mainCharacter{
-      margin: 0 0 0 10%;
+      margin: 0 0 0 5%;
     }
     .enemyCharacter{
       margin: 0 5% 0 0;
@@ -244,7 +262,56 @@ canvas {
     height: 150px;
     background-image: url("../assets/ground-sprite.png");
     float: bottom;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    .spellPanel{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+      width: 120px;
+      height: 60px;
+      box-shadow: 4px 4px 0px 4px rgba(0,0,0,0.71);
+      margin-bottom: 1%;
+      background-color: #6b6b6b;
+      .light, .haduken{
+        padding: 4px;
+      }
+      .light{
+        margin: 0 1px 0 2px;
+      }
+      .haduken{
+        margin: 0 2px 0 1px;
+      }
+      .blockCover{
+        display: none;
+        top: 0;
+        width: 100%;
+        height: 50px;
+        position: absolute;
+      }
+    }
   }
+}
+
+  table{
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    th{
+      color: #59009c;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    th, td{
+      padding: 5px 10px;
+      border: 4px solid #000000;
+    }
+  }
+
+.reverse{
+  transform: rotate(180deg);
 }
 
 .border-bar-8bit{

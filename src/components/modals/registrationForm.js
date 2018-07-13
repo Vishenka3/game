@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import {blinking} from "../../resources/blinking";
+import { setCurrentUser } from "../../actions/userActions";
+import { connect } from "react-redux";
 import User from "../../resources/User";
 
-export default class RegistrationForm extends Component {
+const mapDispatchToProps = {
+    setCurrentUser: setCurrentUser,
+};
+
+class RegistrationForm extends Component {
     currentUser = new User();
 
     registration = () => {
@@ -16,8 +22,11 @@ export default class RegistrationForm extends Component {
             profile.last_name = form.elements[3].value;
             profile.email = form.elements[4].value;
             if(this.currentUser.saveProfile(profile)){
-                this.overlay.removeChild(this.modalTarget);
-                this.parent.removeChild(this.overlay);
+                User.removeTooltip();
+                this.props.setCurrentUser(this.currentUser);
+                //this.overlay.removeChild(this.modalTarget);
+                //this.parent.removeChild(this.overlay);
+                this.overlay.classList.add('hide-modal');
             }
         }
     };
@@ -83,7 +92,7 @@ export default class RegistrationForm extends Component {
                             <div className="cursor"/>
                         </div>
                         <label htmlFor="email">Email:
-                            <input type="email" id="email" name="email" maxLength="20" data-tooltip="Check your Email." required />
+                            <input type="email" id="email" name="email" maxLength="40" data-tooltip="Check your Email." required />
                         </label>
                     </div>
                 </form>
@@ -94,3 +103,5 @@ export default class RegistrationForm extends Component {
         );
     }
 }
+
+export default connect(null, mapDispatchToProps)(RegistrationForm);

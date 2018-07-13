@@ -11,11 +11,15 @@ import legsBones from './images/zombie/zombie-legs-bones.png';
 import torsoBones from './images/zombie/zombie-torso-bones.png';
 import rightArmBones from './images/zombie/zombie-rightArm-bones.png';
 
-let imagesObj = {'leftArm': leftArm, 'legs': legs, 'torso': torso, 'rightArm': rightArm,'head':head,'hair':hair, 'headBones': headBones, 'leftArmBones': leftArmBones, 'legsBones': legsBones, 'torsoBones': torsoBones, 'rightArmBones': rightArmBones };
+import leftArmCast from './images/zombie/zombie-leftArm-cast.png';
+import rightArmCast from './images/zombie/zombie-rightArm-cast.png';
+
+let imagesObj = {'leftArm': leftArm, 'legs': legs, 'torso': torso, 'rightArm': rightArm,'head':head,'hair':hair, 'headBones': headBones, 'leftArmBones': leftArmBones, 'legsBones': legsBones, 'torsoBones': torsoBones, 'rightArmBones': rightArmBones, 'leftArmCast': leftArmCast, 'rightArmCast': rightArmCast };
 
 let canvas;
 let context;
 let images = {};
+let castCorrection = 0;
 let totalResources = 6;
 let numResourcesLoaded = 0;
 let fps = 144;
@@ -58,17 +62,6 @@ function updateFPS() {
     numFramesDrawn = 0;
 }
 
-export function enemyDying() {
-    console.log('dying');
-    // deathID = setInterval( () => {
-    //     death+= 0.1;
-    //     if (death >= 2){
-    //         clearInterval(deathID);
-    //     }
-    // }, 150);
-    isDying = true;
-}
-
 export function drawBones() {
     context = document.getElementById('canvasEnemy').getContext("2d");
 
@@ -100,7 +93,18 @@ export function drawBones() {
     }, 1500)
 }
 
-export function prepareCanvas(canvasDiv, canvasWidth, canvasHeight)
+export function enemyCastSpell() {
+    castCorrection = 30;
+    images["leftArm"].src = imagesObj["leftArmCast"];
+    images["rightArm"].src = imagesObj["rightArmCast"];
+    setTimeout( () => {
+        images["leftArm"].src = imagesObj["leftArm"];
+        images["rightArm"].src = imagesObj["rightArm"];
+        castCorrection = 0;
+    }, 1500)
+}
+
+export function prepareCanvasEnemy(canvasDiv, canvasWidth, canvasHeight)
 {
     canvas = document.createElement('canvas');
     canvas.setAttribute('width', canvasWidth);
@@ -139,6 +143,11 @@ function rotation(deg){
     context.rotate(deg * Math.PI / 180);
 }
 
+export function enemyDying() {
+    isDying === false ?  isDying = true : isDying = false;
+    degree = 0;
+}
+
 function redraw() {
 
     canvas.width = canvas.width; // clears the canvas
@@ -148,24 +157,22 @@ function redraw() {
     if(isDying) {
         if (degree <= 90) {
             rotation(degree += 2);
-        } else {
-            rotation(90);
         }
         breathAmt = 0;
     }else{
         rotation(0);
     }
 
-    context.drawImage(images["leftArm"], x-50-translateX, y-translateY - 37/(Math.pow(death, 1.5)) - breathAmt);
+    context.drawImage(images["leftArm"], x-50-translateX, y-translateY - 37/(Math.pow(death, 1.5)) - breathAmt-castCorrection);
     context.drawImage(images["legs"], x-45-translateX, y-translateY+10/death);
     context.drawImage(images["torso"], x-20-translateX, y-translateY - 40/death);
     context.drawImage(images["head"], x - 45-translateX, y-translateY - 115/death - breathAmt);
     context.drawImage(images["hair"], x - 57-translateX, y-translateY - 128/death - breathAmt);
-    context.drawImage(images["rightArm"], x - 35-translateX, y-translateY - 25/(Math.pow(death, 1.5)) - breathAmt);
+    context.drawImage(images["rightArm"], x - 35-translateX, y-translateY - 25/(Math.pow(death, 1.5)) - breathAmt-castCorrection);
 
 
-    drawEllipse(x -19, y - 58 - breathAmt, 8, curEyeHeight); // Left Eye
-    drawEllipse(x -8, y - 58 - breathAmt, 8, curEyeHeight); // Right Eye
+    drawEllipse(x -19-translateX, y-translateY - 58 - breathAmt, 8, curEyeHeight); // Left Eye
+    drawEllipse(x -8-translateX, y-translateY - 58 - breathAmt, 8, curEyeHeight); // Right Eye
 }
 
 function drawEllipse(centerX, centerY, width, height) {

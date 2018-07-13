@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { prepareCanvas } from '../resources/canvas/mainCharacterDrawing'
+import { prepareCanvasPlayer } from '../resources/canvas/mainCharacterDrawing'
 
 export class MainCharacter extends Component {
     componentDidMount(){
-        prepareCanvas(document.getElementById("mainCharacter"), 150, 220);
+        prepareCanvasPlayer(document.getElementById("mainCharacter"), 220, 220);
     }
 
     render() {

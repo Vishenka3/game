@@ -11,3 +11,17 @@ export const dealDamage = (/*target,*/ damage) => dispatch => {
         payload: {/*target,*/ damage}
     })
 };
+
+export const hitPlayer = (/*target,*/ damage) => dispatch => {
+    dispatch({
+        type: 'HIT_PLAYER',
+        payload: {/*target,*/ damage}
+    })
+};
+
+export const setNewEnemyName = (name) => dispatch => {
+    dispatch({
+        type: 'RESPAWN_ENEMY',
+        payload: {name}
+    })
+};

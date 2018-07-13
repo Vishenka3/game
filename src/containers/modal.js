@@ -4,6 +4,10 @@ import { setModalType } from "../actions/modalActions";
 
 import AuthorizationForm from "../components/modals/authorizaionForm";
 import RegistrationForm from "../components/modals/registrationForm";
+import EvalWindow from "../components/modals/evalWindow"
+import ResultWindow from "../components/modals/resultWindow"
+import Leaderboards from "../components/modals/leaderboards"
+import TranslateWindow from '../components/modals/translateWindow';
 import User from "../resources/User";
 
 const mapStateToProps = state => ({
@@ -40,18 +44,16 @@ class Modal extends Component{
         }
     }
 
-    componentWillUnmount(){
-        //ReactDOM.unmountComponentAtNode(this.modalTarget);
-       // ReactDOM.unmountComponentAtNode(this.overlay);
-        //this.overlay.removeChild(this.modalTarget);
-        //this.parent.removeChild(this.overlay);
-    }
-
     render(){
         return (
             <div id="overlay" className="overlay">
                 <div id="modal" className="modal border-8bit">
-                    {this.props.modalReducer.modalType === 'registration' ? <RegistrationForm/> : <AuthorizationForm onClickHref={this.handleClickHref}/>}
+                    {this.props.modalReducer.modalType === 'registration' ? <RegistrationForm/> :
+                        this.props.modalReducer.modalType === 'authorization' ? <AuthorizationForm onClickHref={this.handleClickHref}/> :
+                            this.props.modalReducer.modalType === 'evalWindow' ?   <EvalWindow/> :
+                                this.props.modalReducer.modalType === 'translateWindow' ?  <TranslateWindow/> :
+                                    this.props.modalReducer.modalType === 'resultsWindow' ? <ResultWindow/> :
+                                        this.props.modalReducer.modalType === 'leaderboards' ? <Leaderboards/> : ''}
                 </div>
             </div>
         )

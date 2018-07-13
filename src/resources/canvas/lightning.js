@@ -435,7 +435,7 @@ export function initLightning(canvasDiv) {
 
     lightning.startPoint.set(points[0]);
     lightning.endPoint.set(points[1]);
-    lightning.setChildNum(3);
+    lightning.setChildNum(7);
 
     // Start Update
 

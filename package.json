@@ -2,7 +2,7 @@
   "name": "kkk",
   "version": "0.1.0",
   "private": false,
-  "homepage": "http://vishenka3.github.io/game",
+  "homepage": "https://vishenka3.github.io/vishenka3-game",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",

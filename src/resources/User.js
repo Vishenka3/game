@@ -13,9 +13,10 @@ export default class User{
         let valid = false;
         for(let i=0;i<form.elements.length;i++) {
             if (form.elements[i].checkValidity() === false) {
+                console.log('form.elements['+i+'].checkValidity() = false');
                 let target = form.elements[i];
                 User.addTooltip(target);
-                break;
+                return false;
             } else {
                 valid = true;
                 User.removeTooltip();
@@ -80,7 +81,7 @@ export default class User{
 
     }
 
-    static addTooltip(target, errorText, isSpeech){
+    static addTooltip(target, errorText, type){
         let tooltip = target.getAttribute('data-tooltip');
         let xCorr = 0, yCorr = 0;
         let tooltipElem = document.createElement('div');
@@ -93,9 +94,12 @@ export default class User{
         document.getElementById('app').appendChild(tooltipElem);
 
         let coords = target.getBoundingClientRect();
-        if(isSpeech) {
+        if(type === 'speech') {
             xCorr = 70;
             yCorr = 70;
+        }else if(type === 'spells'){
+            xCorr = 55;
+            yCorr = -10;
         }
 
         let left = coords.left + 120 - xCorr + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
@@ -114,6 +118,10 @@ export default class User{
 
     static removeTooltip() {
         let tooltips = document.getElementsByClassName('cbbl -right');
+        for (let i = 0; i < tooltips.length; i++) {
+            tooltips[i].remove();
+        }
+        tooltips = document.getElementsByClassName('tooltip');
         for (let i = 0; i < tooltips.length; i++) {
             tooltips[i].remove();
         }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { prepareCanvas } from '../resources/canvas/enemyCharacterDrawing'
+import { prepareCanvasEnemy } from '../resources/canvas/enemyCharacterDrawing'
 
 export class EnemyCharacter extends Component {
     componentDidMount(){
-        prepareCanvas(document.getElementById("enemyCharacter"), 220, 220);
+        prepareCanvasEnemy(document.getElementById("enemyCharacter"), 220, 220);
     }
 
     render() {

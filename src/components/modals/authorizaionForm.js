@@ -25,8 +25,10 @@ class AuthorizationForm extends Component {
         this.props.setCurrentUser(this.currentUser);
         if(this.currentUser.isRegistered()){
             this.currentUser.setProfileIcon();
-            this.overlay.removeChild(this.modalTarget);
-            this.parent.removeChild(this.overlay);
+            User.removeTooltip();
+            //this.overlay.removeChild(this.modalTarget);
+            //this.parent.removeChild(this.overlay);
+            this.overlay.classList.add('hide-modal');
         }
     };
 
